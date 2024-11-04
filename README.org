@@ -1,0 +1,279 @@
+#+AUTHOR: lambdart
+#+EMAIL: lambdart@protonmail.com
+#+KEYWORDS: virtual lisp machine, vlm, readme
+#+LANGUAGE: en
+#+STARTUP: overview
+#+PROPERTY: header-args :comments yes :results silent
+
+* sief - simplified init emacs file
+
+  It has started as for from VLM and adapted to be a simpler init
+  file, with just the core functionalities working in order to
+  continue the process interactively.
+
+  Ideally, this will only need a few libraries in place, like EXWM,
+  and all should be good as a good start for working in a new
+  environment.
+
+* VLM
+
+  Just another =Emacs= configuration written in =org= that
+  has a simple goal: be just a configuration file, i.e,
+  set custom values and hooks for the libraries of interest.
+
+  Some people have started to refer to =Emacs= as a
+  =LISP MACHINE=. It is not strictly a lisp machine
+  because, clearly, it is a software program and not a physical
+  computer, but as that line starts to blur it seems like a useful
+  epithet for =Emacs=, because these days it looks more and more like
+  an =OS=.
+
+* Where to start
+
+  Read the ~src/init.org~ file. You can tangle it using ~make tangle~.
+  Setup the LOADPATH accordingly (more info on init.org). Install
+  the basic libraries needed. Do the changes on init.org whenever it's
+  necessary, repeat the process.
+
+* Screenshot
+
+   #+CAPTION: VIRTUAL LISP MACHINE
+   #+NAME:   fig:VLM-screenshot
+
+   [[./assets/vlm.png]]
+
+   #+CAPTION: EMACS OS, dual monitor
+   #+NAME:   fig:EOS-screenshot2
+
+   [[./assets/eos2.png]]
+
+   | Present Day, heh... Present Time |
+
+* Dependencies
+
+  1. Emacs >= 27
+  2. Elisp Libraries
+     - browse-kill-ring
+     - compat
+     - el-lazy
+     - exwm
+     - xelb
+
+* Tested on
+
+  * EMACS : 26.3, 28.0.50
+
+  - FreeBSD 12.1 RELEASE
+  - Debian GNU/Linux 10
+  - Void Linux
+
+* Installation
+
+  1. Clone this repository
+  2. Backup ~.emacs.d~ directory
+  3. Link ~${HOME}/.emacs.d/~ to ~path-to-sief/src~
+  4. Make sure the LOADPATH is set accordingly (read ~Bootstrap~
+     session on ~src/init.org~
+  4. Tangle source code from ~src/init.org~ to ~init.el~ with
+     ~make tangle~
+  5. Download the dependency libraries and setup to ~src/lisp~ dir
+  5. Open emacs
+  6. Run ~M-x vlm/generate-autodefs~ to ~src/lisp~
+  7. If you're using lazy, run ~M-x lazy-load-loaddefs~
+
+* Philosofy
+
+   - Just one major language (=Elisp=) to conquer them all!
+   - Information comes to you as required and not the other way around.
+   - The same keybinds are used everywhere (learn once, use forever and ever).
+   - The same editing capabilities are used for all applications.
+   - The same =GUI Interface= (frames/window/buffers) are used for all applications.
+
+   - Just one integrated development environment for all projects
+     (independent of the programming language and tools needed
+     to construct it):
+     - Appearance
+     - Editing
+     - Documentation
+     - Communication
+     - Navigation
+     - Completion
+     - Syntax/Spell Checking
+     - Interpretation
+     - Compilation
+     - Debugging
+     - Testing
+     - Rationalization
+     - Versioning
+     - And more, much more ...
+
+   - Understand that data is generic (in computer science we deal
+     with idealized components) and can be manipulated, i.e, transformed
+     through different paths.
+
+   - Huge productivity improvements by:
+     - Staying focused, surfing all the time in the same pleasant/comfortable mood.
+     - Avoiding useless/annoying distractions.
+     - Being precise: Just do what was asked and nothing more.
+     - Decreasing the gap between a =prof of concept= and the =final= release.
+     - Providing tools to easily investigate any process/procedure of
+       interest.
+
+   - Intern communication (=pipes, IPCs, data streams, sockets, you
+     name it=) between peers are transparent, resulting in a very
+     practical, very convenient integration for all libraries and
+     the resources available:
+     - Libraries
+     - Applications
+     - Buffers/Windows/Frames
+     - Processes
+     - Sockets
+     - Files
+     - Etc ...
+
+* Usage
+
+  Using this Emacs configuration isn't different from using
+  vanilla Emacs itself with a "few" reforms.
+  As such, the official Emacs tutorial is a great way to understand a
+  little bit of its universe.
+
+  So, open Emacs and press =C-h= (the help map prefix) and
+  press =t= to evaluate ~help-with-tutorial~ function that will
+  start the interactive tutorial.
+
+  - Enjoy your late nights :)
+
+  - Note: The main purpose of the Emacs tutorial is teaching you
+  the most important standard Emacs commands (or functions)
+  and the mapped keybinds used to trigger then.
+
+* Keybinds
+
+  Basically, new prefix maps are created for the most commonly
+  used minor modes and their functions are mapped within
+  their respective maps.
+
+  After that, the prefix maps will be placed in the =Ctl-x-map=
+  prefix, resulting in the standardization of commands (functions)
+  access sequences - =keybinds= or =chords=.
+
+  For the sake of sanity a lot of keybinds have been cleaned up,
+  It's preferable (IMO) to have a small set of keybinds, consisting
+  only of the most used ones, providing a more stable and less error
+  prone overall usability.
+
+  When 'exotic' functions must to be called, just use
+  =execute-extended-command= binded to =M-x=, also known as the
+  =minibuffer=.
+
+  Note: The =minor-mode-map-alist= was completely erased, this was
+  proven to be a huge pain relief resulting in a considerable
+  productivity gain.
+
+  For more information checkout the =Cleanup= section at
+  ~src/vlm.org~.
+
+** Basic
+
+   If you do not understand the terminology of the tables below,
+   it is advisable to read the [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Key-Bindings.html][emacs keybinds manual]].
+
+**** Fundamental
+
+     | Keyboard | Emacs Notation | Description |
+     |          |                |             |
+     | Alt      | M-             | Meta Key    |
+     | Crtl     | C-             | Command Key |
+
+**** Keymaps
+
+     Keymaps are data structures that hold key sequences (chords) and
+     map/trigger commands (elisp functions).
+
+     | Keymap           | Prefix Key | Available | Description        |
+     |                  |            |           |                    |
+     | Global-map       | C- and M-  | Always    | Generic Actions    |
+     | Ctl-x-map        | C-x        | Always    | Generic Actions    |
+     | <Minor-mode>-map | C-x <key>  | Always    | Minor Mode Actions |
+     | <Major-mode>-map | C-c        | Maybe     | Major Mode Actions |
+
+** Help
+
+   To verify what keys are mapped use =M-x describe-bindings RET=
+   or =C-h b=. It's possible to restrict the search using =C-h= or =?=
+   post-fix for a specific map, e.g:
+
+   | Keybind | Description           |
+   | C-h C-h | help-map help         |
+   | C-c C-h | <major>-mode-map help |
+   | C-x C-h | ctl-x-map help        |
+   | C-x l ? | <minor>-mode-map help |
+
+** C-x
+
+   New keymaps are defined to hold the most common/used commands
+   (elisp functions). They are divided according to their behavior
+   classification:
+
+   | Prefix Keymap  | Prefix  | Description  |
+   |                |         |              |
+   | vlm-files-map  | C-x f   | Files        |
+   | vlm-window-map | C-x w   | Windows      |
+   | vlm-pm-map     | C-x p   | Projects     |
+   | vlm-sc-map     | C-x e   | Errors       |
+   | vlm-tags-maps  | C-x t   | Tags         |
+   | vlm-docs-maps  | C-x l   | Library/Docs |
+   | vlm-utils-map  | C-x c   | Utilities    |
+   | vlm-ac-map     | C-x TAB | Completion   |
+
+** C-c
+
+   Some maps will be only used in specific modes,
+   e.g, cc-mode:
+
+   | Mode  | Keymap    | Prefix | Description |
+   |       |           |        |             |
+   | C/C++ | rtags-map | C-c r  | Rtags       |
+
+** Global
+
+   Not all keybinds will be listed here, just the keybinds that
+   have changed from the standard and the most used ones.
+
+   Remember that you can always call the functions =C-h k= (describe-key)
+   and =C-h b= (describe-bindings) to inquire this information.
+
+   | Keymap | Keybind | Function                     |
+   | Global | C-a     | back-to-indent-or-line       |
+   | Global | C-M-v   | scroll-other-window          |
+   | Global | C-M-y   | scroll-other-window-down     |
+   | Global | M-i     | indent-region-or-buffer      |
+   | Global | M-c     | comment-or-uncomment-region  |
+   | Global | M-j     | clone-current-line-or-region |
+   | Global | M-n     | transpose-lines-up           |
+   | Global | M-p     | transpose-lines-down         |
+   | ...    | ...     | ...                          |
+
+* References
+
+  0. https://www.gnu.org/software/emacs/manual
+  1. https://www.gnu.org/software/emacs/manual/html_node/elisp/index.html
+  2. https://www.gnu.org/software/emacs/manual/html_node/emacs/Keymaps.html
+  3. https://en.wikipedia.org/wiki/Lisp_machine
+  4. https://www.emacswiki.org/emacs/LispMachine
+  5. http://www.gigamonkeys.com/book
+  6. https://github.com/larstvei/dot-emacs/blob/master/init.org
+  7. https://protesilaos.com/dotemacs/
+
+* LICENSE
+  MIT
+* EOF
+
+  #+BEGIN_SRC
+  And you don't seem to understand
+  A shame you seemed an honest man
+  And all the fears you hold so dear
+  Will turn to whisper in your ear
+  #+END_SRC
+  | Duvet, Boa |
